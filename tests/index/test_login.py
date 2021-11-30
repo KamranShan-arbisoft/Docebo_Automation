@@ -16,3 +16,7 @@ class TestLogin(BaseTest):
         self.login_page.login()
         title_of_web_page = self.driver.title
         assert title_of_web_page in self.driver.page_source
+
+    def tearDown(self):
+        self.driver.quit()
+

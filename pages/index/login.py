@@ -4,7 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-from comman.selector import LoginPageSelectors
+from common.selector import LoginPageSelectors
 from pages.base_page import BasePage
 
 import os
@@ -28,6 +28,6 @@ class LoginPage(BasePage):
         user_pwd.send_keys(password)
 
         submit_button = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, 'button[type="submit"]'))
+            EC.presence_of_element_located((By.CSS_SELECTOR, LoginPageSelectors.submit_btn))
         )
         submit_button.click()
