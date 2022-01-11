@@ -1,3 +1,5 @@
+import time
+
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
@@ -13,4 +15,6 @@ class Utils(BasePage):
         )
         admin_menu_button.click()
 
-
+    def page_confirmation_title(self):
+        confirmation_title = self.driver.title
+        return confirmation_title

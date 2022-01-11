@@ -8,7 +8,7 @@ class BaseTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.__driver = webdriver.Chrome('/Users/hafizkamran/Documents/Chrome_driver/chromedriver')
+        cls.__driver = webdriver.Chrome()
         
     @property
     def driver(self):

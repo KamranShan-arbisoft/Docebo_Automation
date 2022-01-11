@@ -3,9 +3,9 @@ import time
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from common.fixtures.new_users_data import DICT
 from common.selector import NewUSerSelectors
 from pages.index.login import LoginPage
+from pages.index import config
 
 
 class NewUser(LoginPage):
@@ -34,16 +34,16 @@ class NewUser(LoginPage):
         user_name = WebDriverWait(self.driver, 10).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, NewUSerSelectors.user_name))
         )
-        user_name.send_keys(DICT.user_data[0])
+        user_name.send_keys(config.user_name)
 
         email = self.driver.find_element_by_css_selector(NewUSerSelectors.user_email)
-        email.send_keys(DICT.user_data[1])
+        email.send_keys(config.email)
 
         first_name = self.driver.find_element_by_css_selector(NewUSerSelectors.user_first_name)
-        first_name.send_keys(DICT.user_data[2])
+        first_name.send_keys(config.first_name)
 
         last_name = self.driver.find_element_by_css_selector(NewUSerSelectors.user_last_name)
-        last_name.send_keys(DICT.user_data[3])
+        last_name.send_keys(config.last_name)
 
         email_validation = self.driver.find_element_by_css_selector(NewUSerSelectors.email_validation_drop)
         email_validation.click()
@@ -59,7 +59,7 @@ class NewUser(LoginPage):
     # Add user into branches but it's an optional, not required field are there
     def fill_new_user_branch_info(self):
         branch_drop = WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable((By.CSS_SELECTOR, NewUSerSelectors.all_branch))
+            EC.visibility_of_element_located((By.CSS_SELECTOR, NewUSerSelectors.all_branch))
         )
         branch_drop.click()
 
@@ -76,13 +76,13 @@ class NewUser(LoginPage):
         client_name = WebDriverWait(self.driver, 10).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, NewUSerSelectors.client_name))
         )
-        client_name.send_keys(DICT.user_data[4])
+        client_name.send_keys(config.client_name)
 
         client_id = self.driver.find_element_by_css_selector(NewUSerSelectors.client_id)
-        client_id.send_keys(DICT.user_data[5])
+        client_id.send_keys(config.client_id)
 
         wave_cohort = self.driver.find_element_by_css_selector(NewUSerSelectors.wave_cohort)
-        wave_cohort.send_keys(DICT.user_data[6])
+        wave_cohort.send_keys(config.wave_cohort)
 
         primary_experience = self.driver.find_element_by_css_selector(NewUSerSelectors.primary_experience_drop)
         primary_experience.click()
@@ -94,19 +94,19 @@ class NewUser(LoginPage):
         primary_experience_item.click()
 
         group_work = self.driver.find_element_by_css_selector(NewUSerSelectors.group_work)
-        group_work.send_keys(DICT.user_data[7])
+        group_work.send_keys(config.group_work)
 
         custom_field1 = self.driver.find_element_by_css_selector(NewUSerSelectors.custom_field1)
-        custom_field1.send_keys(DICT.user_data[8])
+        custom_field1.send_keys(config.custom_field1)
 
         custom_field2 = self.driver.find_element_by_css_selector(NewUSerSelectors.custom_field2)
-        custom_field2.send_keys(DICT.user_data[8])
+        custom_field2.send_keys(config.custom_field1)
 
         custom_field3 = self.driver.find_element_by_css_selector(NewUSerSelectors.custom_field3)
-        custom_field3.send_keys(DICT.user_data[8])
+        custom_field3.send_keys(config.custom_field1)
 
         custom_field4 = self.driver.find_element_by_css_selector(NewUSerSelectors.custom_field4)
-        custom_field4.send_keys(DICT.user_data[8])
+        custom_field4.send_keys(config.custom_field1)
 
         next_btn = self.driver.find_element_by_css_selector(NewUSerSelectors.next_button)
         next_btn.click()
@@ -136,7 +136,7 @@ class NewUser(LoginPage):
             EC.visibility_of_element_located((By.CSS_SELECTOR, NewUSerSelectors.search_input))
         )
         search_new_user.click()
-        search_new_user.send_keys(DICT.user_data[1])
+        search_new_user.send_keys(config.email)
 
         search_btn = self.driver.find_element_by_css_selector(NewUSerSelectors.search_btn)
         search_btn.click()
