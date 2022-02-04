@@ -4,6 +4,11 @@ class LoginPageSelectors:
     submit_btn = 'button[type="submit"]'
 
 
+class FileUploadElement:
+    file_upload_element = 'input[type="file"][accept=".pdf"'
+    save_change_btn_element = 'div.action-buttons button.bg-positive-green-filled'
+
+
 class NewUSerSelectors:
     admin_menu = 'button[aria-label="Admin Menu"]'
     user = 'a[id="item_01"]'
