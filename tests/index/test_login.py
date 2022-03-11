@@ -1,6 +1,4 @@
 import time
-import unittest
-
 from pages.index.login import LoginPage
 from tests.base_test import BaseTest
 

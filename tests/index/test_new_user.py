@@ -1,6 +1,8 @@
+import time
+
 from tests.base_test import BaseTest
 from pages.index.new_user import NewUser
-from utils.utils import Utils
+from pages.utils.utils import Utils
 
 
 class TestNewUser(BaseTest):
