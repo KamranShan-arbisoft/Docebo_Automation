@@ -4,18 +4,13 @@ from selenium import webdriver
 
 
 class BaseTest(unittest.TestCase):
-    __driver = None # why we are using
+    __driver = None
 
     @classmethod
     def setUpClass(cls):
-        cls.__driver = webdriver.Chrome('/Users/hafizkamran/Documents/edx-selenium-project/tests/chromedriver')
-        # cls.__driver.implicitly_wait(5)
-
+        cls.__driver = webdriver.Chrome()
+        
     @property
     def driver(self):
         return self.__driver
-
-    # @classmethod
-    # def tearDownClass(cls):
-    #     cls.__driver.quit()
 

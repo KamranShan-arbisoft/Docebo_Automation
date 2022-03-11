@@ -1,180 +1,96 @@
 import time
-
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-from selenium.webdriver import ActionChains
-
-from comman.fixtures.new_users_data import DICT
-from comman.selector import NewUSerSelectors
+from pages.common.selector import NewUSerSelectors
+from pages.utils.utils import Utils
 from pages.index.login import LoginPage
+from pages.index import config
 
 
 class NewUser(LoginPage):
-    def admin_menu(self):
-        admin_menu_button = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, NewUSerSelectors.admin_menu))
-        )
-        admin_menu_button.click()
 
+    # Click on the user button from the admin menu then click on user branch and click on invisible new user button
     def new_user_buttons(self):
-        click_to_user = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, NewUSerSelectors.user))
-        )
-        click_to_user.click()
-
+        Utils.presence_of_element_located(self, NewUSerSelectors.user)
         time.sleep(3)
-        click_to_new_user = WebDriverWait(self.driver, 20).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, NewUSerSelectors.new_user))
-        )
-        click_to_new_user.click()
-
+        Utils.presence_of_element_located(self, NewUSerSelectors.new_user_branch)
         time.sleep(3)
-        click_to_visible_new_user = WebDriverWait(self.driver, 20).until(
-            EC.element_to_be_clickable((By.CSS_SELECTOR, NewUSerSelectors.visible_new_user))
-        )
-        click_to_visible_new_user.click()
+        Utils.element_to_be_clickable(self, NewUSerSelectors.new_user)
 
+    # filling New user General Required information and some optional fields
     def fill_new_user_general_info(self):
-        user_name = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, NewUSerSelectors.user_name))
-        )
-        user_name.click()
-        user_name.send_keys(DICT.user_data[0])
+        Utils.presence_of_element_located(self, NewUSerSelectors.user_name, config.user_name)
 
-        email = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, NewUSerSelectors.user_email))
-        )
-        email.click()
-        email.send_keys(DICT.user_data[1])
+        email = self.driver.find_element_by_css_selector(NewUSerSelectors.user_email)
+        email.send_keys(config.email)
 
-        first_name = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, NewUSerSelectors.user_first_name))
-        )
-        first_name.click()
-        first_name.send_keys(DICT.user_data[2])
+        first_name = self.driver.find_element_by_css_selector(NewUSerSelectors.user_first_name)
+        first_name.send_keys(config.first_name)
 
-        last_name = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, NewUSerSelectors.user_last_name))
-        )
-        last_name.click()
-        last_name.send_keys(DICT.user_data[3])
+        last_name = self.driver.find_element_by_css_selector(NewUSerSelectors.user_last_name)
+        last_name.send_keys(config.last_name)
 
-        email_validation = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, NewUSerSelectors.email_validation_drop))
-        )
+        email_validation = self.driver.find_element_by_css_selector(NewUSerSelectors.email_validation_drop)
         email_validation.click()
 
-        verified = WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable((By.CSS_SELECTOR, NewUSerSelectors.email_validation_item))
-        )
-        verified.click()
+        Utils.element_to_be_clickable(self, NewUSerSelectors.email_validation_item)
 
-        next_btn = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, NewUSerSelectors.next_button))
-        )
+        next_btn = self.driver.find_element_by_css_selector(NewUSerSelectors.next_button)
         next_btn.click()
 
+    # Add user into branches but it's an optional, not required field are there
     def fill_new_user_branch_info(self):
-        branch_drop = WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable((By.CSS_SELECTOR, NewUSerSelectors.all_branch))
-        )
-        branch_drop.click()
+        Utils.visibility_of_element_located_click(self, NewUSerSelectors.all_branch)
 
-        branch_item = WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located((By.CSS_SELECTOR, NewUSerSelectors.branch_item))
-        )
-        branch_item.click()
+        Utils.visibility_of_element_located_click(self, NewUSerSelectors.branch_item)
 
-        next_btn = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, NewUSerSelectors.next_button))
-        )
+        next_btn = self.driver.find_element_by_css_selector(NewUSerSelectors.next_button)
         next_btn.click()
 
+    # Filling additional info form with some required fields "client Name, Client ID, Primary experience,"
     def fill_new_user_additional_info(self):
-        client_name = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, NewUSerSelectors.client_name))
-        )
-        client_name.click()
-        client_name.send_keys(DICT.user_data[4])
+        Utils.presence_of_element_located(self, NewUSerSelectors.client_name, config.client_name)
 
-        client_id = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, NewUSerSelectors.client_id))
-        )
-        client_id.click()
-        client_id.send_keys(DICT.user_data[5])
+        client_id = self.driver.find_element_by_css_selector(NewUSerSelectors.client_id)
+        client_id.send_keys(config.client_id)
 
-        wave_cohort = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, NewUSerSelectors.wave_cohort))
-        )
-        wave_cohort.click()
-        wave_cohort.send_keys(DICT.user_data[6])
+        wave_cohort = self.driver.find_element_by_css_selector(NewUSerSelectors.wave_cohort)
+        wave_cohort.send_keys(config.wave_cohort)
 
-        primary_experience = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, NewUSerSelectors.primary_experience_drop))
-        )
+        primary_experience = self.driver.find_element_by_css_selector(NewUSerSelectors.primary_experience_drop)
         primary_experience.click()
 
-        # time.sleep(3)
-        primary_experience_item = WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable((By.CSS_SELECTOR, NewUSerSelectors.primary_experience_item))
-        )
-        primary_experience_item.click()
+        Utils.element_to_be_clickable(self, NewUSerSelectors.primary_experience_item)
 
-        group_work = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, NewUSerSelectors.group_work))
-        )
-        group_work.click()
-        group_work.send_keys(DICT.user_data[7])
+        group_work = self.driver.find_element_by_css_selector(NewUSerSelectors.group_work)
+        group_work.send_keys(config.group_work)
 
-        custom_field1 = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, NewUSerSelectors.custom_field1))
-        )
-        custom_field1.click()
-        custom_field1.send_keys(DICT.user_data[8])
+        custom_field1 = self.driver.find_element_by_css_selector(NewUSerSelectors.custom_field1)
+        custom_field1.send_keys(config.custom_field1)
 
-        custom_field2 = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, NewUSerSelectors.custom_field2))
-        )
-        custom_field2.click()
-        custom_field2.send_keys(DICT.user_data[8])
+        custom_field2 = self.driver.find_element_by_css_selector(NewUSerSelectors.custom_field2)
+        custom_field2.send_keys(config.custom_field1)
 
-        custom_field3 = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, NewUSerSelectors.custom_field3))
-        )
-        custom_field3.click()
-        custom_field3.send_keys(DICT.user_data[8])
+        custom_field3 = self.driver.find_element_by_css_selector(NewUSerSelectors.custom_field3)
+        custom_field3.send_keys(config.custom_field1)
 
-        custom_field4 = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, NewUSerSelectors.custom_field4))
-        )
-        custom_field4.click()
-        custom_field4.send_keys(DICT.user_data[8])
+        custom_field4 = self.driver.find_element_by_css_selector(NewUSerSelectors.custom_field4)
+        custom_field4.send_keys(config.custom_field1)
 
-        next_btn = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, NewUSerSelectors.next_button))
-        )
+        next_btn = self.driver.find_element_by_css_selector(NewUSerSelectors.next_button)
         next_btn.click()
 
-    def preview(self):
-        preview_btn = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, NewUSerSelectors.preview_btn))
-        )
-        preview_btn.click()
+    # Before clicking on the new user button we are verifying New user information by clicking on Preview button..
+    def preview_info_btn(self):
+        Utils.presence_of_element_located(self, NewUSerSelectors.preview_btn)
 
-        create_user = WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable((By.CSS_SELECTOR, NewUSerSelectors.create_user_button))
-        )
-        create_user.click()
+        Utils.element_to_be_clickable(self, NewUSerSelectors.create_user_button)
 
+    # After clicking on create new user button we will get the message "User successfully added" and Confirmation button
+    def what_next(self):
+        Utils.visibility_of_element_located(self, NewUSerSelectors.confirmation_btn)
+        Utils.presence_of_element_located(self, NewUSerSelectors.confirmation_btn)
+
+    # Again search the user in the search bar and make sure the user is added
     def verify_user_added(self):
-        search_new_user = WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located((By.CSS_SELECTOR, NewUSerSelectors.search_input))
-        )
-        search_new_user.click()
-        search_new_user.send_keys(DICT.user_data[1])
-
-        search_btn = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, NewUSerSelectors.search_btn))
-        )
+        Utils.visibility_of_element_located_click(self, NewUSerSelectors.search_input, config.email)
+        search_btn = self.driver.find_element_by_css_selector(NewUSerSelectors.search_btn)
         search_btn.click()
